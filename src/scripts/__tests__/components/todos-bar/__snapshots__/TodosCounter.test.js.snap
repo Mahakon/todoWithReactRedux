@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TodosCounter/> snap-shot test Renders correct props 1`] = `
+<div
+  aria-label="number of undone items"
+  className="todos-actions-bar_counter-undone"
+>
+  2 items left
+</div>
+`;
