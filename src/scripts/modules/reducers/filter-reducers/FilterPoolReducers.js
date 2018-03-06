@@ -1,3 +1,5 @@
+import {FILTER_ALL} from "../../../constants/FilterTypes";
+
 class FilterPoolReducers {
     constructor() {
         this.reducers = [];
@@ -10,9 +12,9 @@ class FilterPoolReducers {
         this.reducers.push(reducer)
     }
 
-    getNewState(state = 'todos-filter __all', action) {
+    getNewState(state = FILTER_ALL, action) {
         return this.reducers.reduce((state, reducer) => {
-            return reducer.getNewState(state, action)
+            return reducer(state, action)
         }, state)
     }
 }

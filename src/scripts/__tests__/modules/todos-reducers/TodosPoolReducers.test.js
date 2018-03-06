@@ -13,15 +13,15 @@ import deleteAllCompletedTodosAction from
         '../../../modules/actions/deleteAllCompletedTodosAction'
 import addTodosAction from '../../../modules/actions/addTodosAction'
 import ToggleTodosReducer
-    from '../../../modules/reducers/todos-reducers/base-reducers/ToggleTodosReducer'
+    from '../../../modules/reducers/todos-reducers/base-reducers/toggleTodosReducer'
 import AddTodosReducer
-    from '../../../modules/reducers/todos-reducers/base-reducers/AddTodosReducer'
+    from '../../../modules/reducers/todos-reducers/base-reducers/addTodosReducer'
 import DeleteAllCompletedTodosReducer
-    from '../../../modules/reducers/todos-reducers/base-reducers/DeleteAllCompletedTodosReducer'
+    from '../../../modules/reducers/todos-reducers/base-reducers/deleteAllCompletedTodosReducer'
 import DeleteTodosReducer
-    from '../../../modules/reducers/todos-reducers/base-reducers/DeleteTodosReducer'
+    from '../../../modules/reducers/todos-reducers/base-reducers/deleteTodosReducer'
 import MakeAllCompletedTodosReducer
-    from '../../../modules/reducers/todos-reducers/base-reducers/MakeAllCompletedTodosReducer'
+    from '../../../modules/reducers/todos-reducers/base-reducers/makeAllCompletedTodosReducer'
 import TodosPoolReducers from
         '../../../modules/reducers/todos-reducers/TodosPoolReducers'
 

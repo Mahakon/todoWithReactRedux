@@ -22,7 +22,7 @@ const storeFactory = (initialState = stateData, appReducer) =>
         appReducer,
         (localStorage['redux-store']) ?
             JSON.parse(localStorage['redux-store']) :
-            initialState/*?*/
+            initialState
     );
 
 export default storeFactory;

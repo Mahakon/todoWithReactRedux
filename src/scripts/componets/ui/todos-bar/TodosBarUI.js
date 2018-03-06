@@ -7,26 +7,17 @@ import TodosDeleteAllCompletedButton from
         '../../containers/todos-bar/TodosDeleteAllCompletedButton'
 
 export default class TodosBarUI extends React.Component{
-    constructor(props) {
-        super(props);
-        this.setVisibility = this.setVisibility.bind(this);
-    }
-
     setVisibility() {
         if (this.props.numTodosItems == 0) {
-            return {
-                display: "none"
-            }
+            return "none"
         }
 
-        return {
-            display: "flex"
-        }
+        return "flex"
     }
 
     render() {
         return (
-            <div className="todos-actions-bar" style={this.setVisibility()}>
+            <div className="todos-actions-bar" style={{display: this.setVisibility()}}>
                 <TodosCounter/>
                 <TodosFilters/>
                 <TodosDeleteAllCompletedButton/>

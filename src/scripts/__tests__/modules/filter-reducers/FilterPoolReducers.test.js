@@ -2,7 +2,7 @@ import expect from 'expect'
 import deepFreeze from 'deep-freeze'
 
 import FilterReducer from
-        '../../../modules/reducers/filter-reducers/base-reducers/FilterReducer'
+        '../../../modules/reducers/filter-reducers/base-reducers/filterReducer'
 import FilterPoolReducers from
         '../../../modules/reducers/filter-reducers/FilterPoolReducers'
 import setFilterTodosAction from

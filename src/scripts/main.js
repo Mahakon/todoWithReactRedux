@@ -8,7 +8,6 @@ import TodosContainer from './componets/TodosContainer'
 
 const init = () => {
     function render() {
-        localStorage['redux-store'] = JSON.stringify(store.getState());
         ReactDOM.render(
             <Provider store={store}>
                 <TodosContainer/>

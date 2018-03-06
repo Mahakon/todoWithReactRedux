@@ -7,101 +7,91 @@ import {FILTER_ALL, FILTER_ACTIVE, FILTER_COMPLETED}
 export default class TodosItemUI extends React.Component {
     constructor(props) {
         super(props);
-        this.setClassName = this.setClassName.bind(this);
-        this.setVisibility = this.setVisibility.bind(this);
+
+        this.handlerClick = this.handlerClick.bind(this);
+        this.handlerChange = this.handlerChange.bind(this);
     }
 
-    setClassName(completed, type = 'item') {
-        switch (type) {
-            case 'mark-w': {
-                return (!completed) ?
-                    'todos-item_undone-mark-w' :
-                    'todos-item_done-mark-w'
-            } break;
+    handlerClick() {
+        this.props.deleteTodos(this.props.id)
+    }
 
-            case 'mark-icon': {
-                return (!completed) ?
-                    'todos-item_undone-mark-icon' :
-                    'todos-item_done-mark-icon'
-            } break;
+    handlerChange() {
+        this.props.toggleTodos(this.props.id)
+    }
 
-            case 'mark': {
-                return (!completed) ?
-                    'todos-item_undone-mark' :
-                    'todos-item_done-mark'
-            } break;
+    setClassItemName(completed) {
+        return (!completed) ?
+            'todos-item' :
+            'todos-item __done'
+    }
 
-            default: {
-                return (!completed) ?
-                    'todos-item' :
-                    'todos-item __done'
-            }
-        }
+    setAriaLabelAttribute(completed) {
+        return (completed) ?
+            "mark done" :
+            "mark undone"
+    }
+
+    setCheckedAttribute(completed) {
+        return (completed) ?
+            "checked" :
+            ""
     }
 
     setVisibility(currentFilter, completed) {
         switch (currentFilter) {
             case FILTER_ALL: {
-                return {
-                    display: 'block'
-                };
+                return "block"
             } break;
 
             case FILTER_ACTIVE: {
-                return (completed) ?
-                    {
-                        display: "none"
-                    } :
-                    {
-                        display: "block"
-                    }
+                return (completed) ? "none" : "block"
             } break;
 
             case FILTER_COMPLETED : {
-                return (!completed) ?
-                    {
-                        display: "none"
-                    } :
-                    {
-                        display: "block"
-                    }
+                return (!completed) ? "none" : "block"
             } break;
         }
     }
 
     render() {
         return (
-            <div className={this.setClassName(this.props.completed)} style=
-                {this.setVisibility(this.props.currentFilter,
-                    this.props.completed)} id={this.props.id}>
+            <div className={this.setClassItemName(this.props.completed)}
+                 style={{display: this.setVisibility(
+                                        this.props.currentFilter,
+                                        this.props.completed)
+                 }}
+                 id={this.props.id}>
 
-                <div className={this.setClassName(this.props.completed,
-                    'mark-w') + " todos-item_belonging-checkbox"}>
-
-                    <div className={this.setClassName(
-                        this.props.completed, 'mark-icon')}></div>
-
-                    <input className={this.setClassName(
-                        this.props.completed, 'mark')} aria-label=
-                        "mark undone" type="checkbox"/>
-
+                <div className="todos-item_checkbox todos-item_belonging-checkbox">
+                    <input className="todos-item_checkbox-ready-mark"
+                           aria-label={
+                               this.setAriaLabelAttribute(this.props.completed)
+                           }
+                           type="checkbox"
+                           checked={
+                               this.setCheckedAttribute(this.props.completed)
+                           }
+                           onChange={this.handlerChange}/>
+                        <div className="todos-item_checkbox-ready-mark-w">
+                            <div className="todos-item_checkbox-ready-mark-icon">
+                            </div>
+                        </div>
                 </div>
 
                 <div className="todos-item_delete-w">
-
                     <div className="todos-item_delete_icon"></div>
-
                     <button className="todos-item_delete"
-                            aria-label="delete item"></button>
+                            aria-label="delete item"
+                            onClick={this.handlerClick}>
 
+                    </button>
                 </div>
 
                 <div className="todos-item_name-w">
-
                     <textarea className="todos-item_name" value=
                         {this.props.value} readOnly="readOnly">
                     </textarea>
-
                 </div>
 
             </div>
@@ -113,5 +103,7 @@ TodosItemUI.propTypes = {
     completed: PropTypes.bool.isRequired,
     currentFilter: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
-    value: PropTypes.string.isRequired
+    value: PropTypes.string.isRequired,
+    toggleTodos: PropTypes.func.isRequired,
+    deleteTodos: PropTypes.func.isRequired
 };

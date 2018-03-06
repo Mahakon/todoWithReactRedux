@@ -1,6 +1,6 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 
 import {FILTER_COMPLETED, FILTER_ACTIVE, FILTER_ALL} from
         '../../../constants/FilterTypes'
@@ -9,116 +9,56 @@ import {FILTER_COMPLETED, FILTER_ACTIVE, FILTER_ALL} from
 export default class TodosFiltersUI extends React.Component{
     constructor(props) {
         super(props);
-        this.handlerClick = this.handlerClick.bind(this);
-        this.changeFilter = this.changeFilter.bind(this);
-        this.setFocusOnCurrentFilter = this
-            .setFocusOnCurrentFilter.bind(this);
+
+        this.handlerClickAll = this.handlerClickAll.bind(this);
+        this.handlerClickActive = this.handlerClickActive.bind(this);
+        this.handlerClickComleted = this.handlerClickComleted.bind(this);
     }
 
-    handlerClick(event) {
-        switch (event.target.className) {
-            case FILTER_ALL : {
-                this.changeFilter(FILTER_ALL);
-            } break;
-
-            case FILTER_ACTIVE: {
-                this.changeFilter(FILTER_ACTIVE);
-            } break;
-
-            case FILTER_COMPLETED: {
-                this.changeFilter(FILTER_COMPLETED);
-            } break;
-        }
+    handlerClickAll() {
+        this.props.onFilterTodos(FILTER_ALL)
     }
 
-    setFocusOnCurrentFilter(currentFilter, choosenFilter) {
-        switch (choosenFilter) {
-            case FILTER_ALL: {
-                if (currentFilter.localeCompare(FILTER_ALL) === 0) {
-                    return {
-                        border: '2px solid #efefef',
-                        borderRadius: '2px'
-                    }
-                } else {
-                    return {
-                        border: '2px solid #fff',
-                        borderRadius: '2px'
-                    }
-                }
-            } break;
-
-            case (FILTER_ACTIVE): {
-
-                if (currentFilter.localeCompare(FILTER_ACTIVE) === 0) {
-                    return {
-                        border: '2px solid #efefef',
-                        borderRadius: '2px'
-                    }
-                } else {
-                    return {
-                        border: '2px solid #fff',
-                        borderRadius: '2px'
-                    }
-                }
-            } break;
-
-            case (FILTER_COMPLETED): {
-                if (currentFilter.localeCompare(FILTER_COMPLETED) === 0) {
-                    return {
-                        border: '2px solid #efefef',
-                        borderRadius: '2px'
-                    }
-                } else {
-                    return {
-                        border: '2px solid #fff',
-                        borderRadius: '2px'
-                    }
-                }
-            } break;
-        }
-
-
+    handlerClickActive() {
+        this.props.onFilterTodos(FILTER_ACTIVE)
     }
 
-    componentDidMount() {
-        ReactDOM.findDOMNode(this)
-            .addEventListener('click', this.handlerClick);
+    handlerClickComleted() {
+        this.props.onFilterTodos(FILTER_COMPLETED)
     }
 
-    componentWillUnmount() {
-        ReactDOM.findDOMNode(this)
-            .removeEventListener('click', this.handlerClick);
-    }
+    setClasses(curFilter) {
+        const isChoosen = (curFilter === this.props.currentFilter);
 
-    changeFilter(filterName) {
-        this.props.onFilterTodos(filterName)
+        return classnames(
+            "todos-filter",
+            curFilter,
+            {"__choosen": isChoosen},
+            {"__unchoosen": !isChoosen}
+        )
     }
 
     render() {
         return (
             <div className="todos-filters">
-                <button className="todos-filter __all"
-                        aria-label="show all items" style=
-                            {this.setFocusOnCurrentFilter(
-                                this.props.currentFilter, FILTER_ALL)}>
+                <button className={this.setClasses(FILTER_ALL)}
+                        aria-label="show all items"
+                        onClick={this.handlerClickAll}>
                     All
                 </button>
-                <button className="todos-filter __active"
-                        aria-label="show undone items" style={
-                            this.setFocusOnCurrentFilter(
-                                this.props.currentFilter, FILTER_ACTIVE)}>
+                <button className={this.setClasses(FILTER_ACTIVE)}
+                        aria-label="show undone items"
+                        onClick={this.handlerClickActive}>
                     Active
                 </button>
-                <button className="todos-filter __completed"
-                        aria-label="show done items" style=
-                            {this.setFocusOnCurrentFilter(
-                                this.props.currentFilter, FILTER_COMPLETED)}>
+                <button className={this.setClasses(FILTER_COMPLETED)}
+                        aria-label="show done items"
+                        onClick={this.handlerClickComleted}>
                     Completed
                 </button>
             </div>
         )
     }
-
 }
 
 TodosFiltersUI.propTypes = {
